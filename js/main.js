@@ -31,19 +31,30 @@ function displayChannels(channels) {
     channels.forEach(channel => {
         const navUlEl = document.getElementById("mainnavlist")
 
+        //Utskrift ska se ut som liknande: <li><a>test</a></li>
         let newLiEl = document.createElement("li");
-        //Utskrift ska se ut som liknande: <li>test</li>
+        let newAEl = document.createElement("a");
         let newLiText = document.createTextNode(channel.name);
 
-        newLiEl.appendChild(newLiText);
+        newAEl.appendChild(newLiText);
+        newLiEl.appendChild(newAEl);
         navUlEl.appendChild(newLiEl);
+
     });
 }
-// Funktion som tar beskrivningen från varje kanal, och när man hoverar li elementet poppar texten upp
-function displayChannelDesc() {
 
+// Lägger till eventListener till när muspekaren är över en av kanalerna, då ska funktionen displayChannelsDesc köras
+
+
+// Funktion som tar beskrivningen från varje kanal, och när man hoverar li elementet poppar texten upp
+
+
+function displayChannelDesc() {
+    console.log("hahaha");
 }
 // Onclick visar programtablå för aktuella kanalen med start på kanalen fram till midnatt
 
+
+//BYT TIILL HTTPS INNAN INLÄMNING!
 
 

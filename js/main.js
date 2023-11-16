@@ -18,13 +18,14 @@ function init() {
 function getChannels() {
     const url = "http://api.sr.se/api/v2/channels/?format=json";
 
-    //Fetchar API
+    //Fetchar API med program
 
     fetch(url)
         .then(response => response.json())
         .then(data => displayChannels(data.channels))
         .catch(error => console.log(error));
 }
+
 // 
 function displayChannels(channels) {
 
@@ -32,17 +33,16 @@ function displayChannels(channels) {
         const navUlEl = document.getElementById("mainnavlist")
 
 
-        //Utskrift ska se ut som liknande: <li><a>test</a></li>
+        //Utskrift ska se ut som liknande: <li>test</li>
         let newLiEl = document.createElement("li");
-        let newAEl = document.createElement("a");
         let newLiText = document.createTextNode(channel.name);
 
         newLiEl.addEventListener("click", function () {
-            displayChannelDesc(channel);
+            displayChannelDesc(channel.id);
         });
 
-        newAEl.appendChild(newLiText);
-        newLiEl.appendChild(newAEl);
+
+        newLiEl.appendChild(newLiText);
         navUlEl.appendChild(newLiEl);
 
     });
@@ -55,17 +55,42 @@ function displayChannels(channels) {
 
 
 
-function displayChannelDesc(channels) {
-    const articleEl = document.getElementById("info");
-    // Utskrivningsformat: <article> <h3>Titel på program</h3><h4>Undertitel</h4><h5>Start- och sluttid för programmet</h5><p>Beskrivning</p></article>
-    channels.forEach(channel => {
-        let newArticleEl = document.createElement("article");
-        let newTitleEl = document.createElement("h3");
-        let newSubTitleEl = document.createElement("h4");
-        let newTimeEl = document.createElement("h5");
-        let newDescription = document.createElement("p");
+function displayChannelDesc(id) {
+    const url = 'https://api.sr.se/api/v2/scheduledepisodes?format=json&channelid=' + id;
 
-    })
+    fetch(url)
+        .then(response => response.json())
+        .then(data => data.schedules)
+        .catch(error => console.log(error));
+
+
+
+
+
+    // Utskrivningsformat: <article> <h3>Titel på program</h3><h5>Start- och sluttid för programmet</h5><p>Beskrivning</p></article>
+
+
+
+
+
+
+    /*let newArticleEl = document.createElement("article");
+    let newTitleEl = document.createElement("h3");
+    let newTitleText = document.createTextNode(schedule.title);
+    newTitleEl.appendChild(newTitleText);
+    let newDescriptionEl = document.createElement("p");
+    let newDescriptionText = document.createTextNode(schedule.description);
+    newDescriptionEl.appendChild(newDescriptionText);
+    let newTimeEl = document.createElement("h5");
+    let newTimeText = document.createTextNode(schedule.starttimeutc, schedule.endtimeutc);
+    newTimeEl.appendChild(newTimeText);
+
+    newArticleEl.appendChild(newTitleEl);
+    newArticleEl.appendChild(newDescriptionEl);
+    newArticleEl.appendChild(newTimeEl);
+
+    articleEl.appendChild(newArticleEl)*/
+
 }
 
 

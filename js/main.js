@@ -31,10 +31,15 @@ function displayChannels(channels) {
     channels.forEach(channel => {
         const navUlEl = document.getElementById("mainnavlist")
 
+
         //Utskrift ska se ut som liknande: <li><a>test</a></li>
         let newLiEl = document.createElement("li");
         let newAEl = document.createElement("a");
         let newLiText = document.createTextNode(channel.name);
+
+        newLiEl.addEventListener("click", function () {
+            displayChannelDesc(channel);
+        });
 
         newAEl.appendChild(newLiText);
         newLiEl.appendChild(newAEl);
@@ -49,9 +54,23 @@ function displayChannels(channels) {
 // Funktion som tar beskrivningen från varje kanal, och när man hoverar li elementet poppar texten upp
 
 
-function displayChannelDesc() {
-    console.log("hahaha");
+
+function displayChannelDesc(channels) {
+    const articleEl = document.getElementById("info");
+    // Utskrivningsformat: <article> <h3>Titel på program</h3><h4>Undertitel</h4><h5>Start- och sluttid för programmet</h5><p>Beskrivning</p></article>
+    channels.forEach(channel => {
+        let newArticleEl = document.createElement("article");
+        let newTitleEl = document.createElement("h3");
+        let newSubTitleEl = document.createElement("h4");
+        let newTimeEl = document.createElement("h5");
+        let newDescription = document.createElement("p");
+
+    })
 }
+
+
+
+
 // Onclick visar programtablå för aktuella kanalen med start på kanalen fram till midnatt
 
 

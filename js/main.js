@@ -18,7 +18,7 @@ function init() {
 function getChannels() {
     const url = "http://api.sr.se/api/v2/channels/?format=json";
 
-    //Fetchar API med program
+    //Fetchar API om kanaler
 
     fetch(url)
         .then(response => response.json())
@@ -26,7 +26,8 @@ function getChannels() {
         .catch(error => console.log(error));
 }
 
-// 
+// Skriver ut kanaler till vänstra sidan av index.html
+
 function displayChannels(channels) {
 
     channels.forEach(channel => {
@@ -34,13 +35,16 @@ function displayChannels(channels) {
 
 
         //Utskrift ska se ut som liknande: <li>test</li>
+
         let newLiEl = document.createElement("li");
         let newLiText = document.createTextNode(channel.name);
+        // Lägger till eventListener till när muspekaren är över en av kanalerna, då ska funktionen displayChannelsDesc köras
 
         newLiEl.addEventListener("click", function () {
             displayChannelDesc(channel.id);
         });
 
+//Appendar de tidigare element jag skapat med de nya textnoderna
 
         newLiEl.appendChild(newLiText);
         navUlEl.appendChild(newLiEl);
@@ -48,30 +52,21 @@ function displayChannels(channels) {
     });
 }
 
-// Lägger till eventListener till när muspekaren är över en av kanalerna, då ska funktionen displayChannelsDesc köras
-
-
-// Funktion som tar beskrivningen från varje kanal, och när man hoverar li elementet poppar texten upp
-
-
+// Funktion som tar idn från kanalen och i sin tur skriver ut tablån för kanalen när man klickar på kanalen i listan
 
 function displayChannelDesc(id) {
     const url = 'https://api.sr.se/api/v2/scheduledepisodes?format=json&channelid=' + id;
 
     fetch(url)
         .then(response => response.json())
-        .then(data => data.schedules)
+        .then(data => data.schedules)            // Hur ska jag spara datan? Det som är problemet.
         .catch(error => console.log(error));
-
-
-
-
 
     // Utskrivningsformat: <article> <h3>Titel på program</h3><h5>Start- och sluttid för programmet</h5><p>Beskrivning</p></article>
 
 
 
-
+// Gjorde denna delen av koden till kommentar då jag antagligen kommer använda dessa rader när jag får rätt på själva funktionen med id osv.
 
 
     /*let newArticleEl = document.createElement("article");
@@ -92,11 +87,6 @@ function displayChannelDesc(id) {
     articleEl.appendChild(newArticleEl)*/
 
 }
-
-
-
-
-// Onclick visar programtablå för aktuella kanalen med start på kanalen fram till midnatt
 
 
 //BYT TIILL HTTPS INNAN INLÄMNING!

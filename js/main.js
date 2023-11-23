@@ -26,7 +26,6 @@ function getChannels() {
         .catch(error => console.log(error));
 }
 
-// 
 function displayChannels(channels) {
 
     channels.forEach(channel => {
@@ -38,7 +37,7 @@ function displayChannels(channels) {
         let newLiText = document.createTextNode(channel.name);
 
         newLiEl.addEventListener("click", function () {
-            displayChannelDesc(channel.id);
+            getChannelDesc(channel.id);
         });
 
 
@@ -55,50 +54,49 @@ function displayChannels(channels) {
 
 
 
-function displayChannelDesc(id) {
+
+
+
+
+
+function getChannelDesc(id) {
     const url = 'https://api.sr.se/api/v2/scheduledepisodes?format=json&channelid=' + id;
 
     fetch(url)
         .then(response => response.json())
-        .then(data => data.schedules)
+        .then(data => {
+            console.log(data.schedule)
+        })
         .catch(error => console.log(error));
+}
 
+function displayChannelDesc(title, description, starttimeutc, endtimeutc) {
+    const articleEl = document.getElementById("info");
 
-
-
-
-    // Utskrivningsformat: <article> <h3>Titel på program</h3><h5>Start- och sluttid för programmet</h5><p>Beskrivning</p></article>
-
-
-
-
-
-
-    /*let newArticleEl = document.createElement("article");
+    let newArticleEl = document.createElement("article");
     let newTitleEl = document.createElement("h3");
-    let newTitleText = document.createTextNode(schedule.title);
+    let newTitleText = document.createTextNode(title);
     newTitleEl.appendChild(newTitleText);
+
     let newDescriptionEl = document.createElement("p");
-    let newDescriptionText = document.createTextNode(schedule.description);
+    let newDescriptionText = document.createTextNode(description);
     newDescriptionEl.appendChild(newDescriptionText);
+
     let newTimeEl = document.createElement("h5");
-    let newTimeText = document.createTextNode(schedule.starttimeutc, schedule.endtimeutc);
+    let newTimeText = document.createTextNode(starttimeutc + ' - ' + endtimeutc);
     newTimeEl.appendChild(newTimeText);
 
     newArticleEl.appendChild(newTitleEl);
     newArticleEl.appendChild(newDescriptionEl);
     newArticleEl.appendChild(newTimeEl);
 
-    articleEl.appendChild(newArticleEl)*/
+    articleEl.appendChild(newArticleEl);
+
 
 }
-
-
-
 
 // Onclick visar programtablå för aktuella kanalen med start på kanalen fram till midnatt
 
 
 //BYT TIILL HTTPS INNAN INLÄMNING!
-
 

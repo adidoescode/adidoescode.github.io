@@ -16,7 +16,7 @@ function init() {
 }
 
 function getChannels() {
-    const url = "http://api.sr.se/api/v2/channels/?format=json";
+    const url = "http://api.sr.se/api/v2/channels/?format=json&size=999";
 
     //Fetchar API med program
 
@@ -65,7 +65,7 @@ function getChannelDesc(id) {
     fetch(url)
         .then(response => response.json())
         .then(data => {
-            console.log(data.schedule)
+            displayChannelDesc(data.schedule);
         })
         .catch(error => console.log(error));
 }

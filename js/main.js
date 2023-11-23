@@ -94,9 +94,8 @@ function displayChannelDesc(title, description, starttimeutc, endtimeutc) {
 
 
 }
+// Det poppar upp massa "Object" istället för titeln för den valda kanalen, tror kanske det kan bero på att de tar titeln från data och inte data schedule, men vet inte. Suttit och klurat vet inte hur länge nu men kommer ingen vart.
 
-// Onclick visar programtablå för aktuella kanalen med start på kanalen fram till midnatt
 
 
-//BYT TIILL HTTPS INNAN INLÄMNING!
 

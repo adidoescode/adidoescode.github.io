@@ -16,7 +16,7 @@ function init() {
 }
 
 function getChannels() {
-    const url = "http://api.sr.se/api/v2/channels/?format=json&size=999";
+    const url = "http://api.sr.se/api/v2/channels/?format=json";
 
     //Fetchar API med program
 
@@ -50,15 +50,6 @@ function displayChannels(channels) {
 // Lägger till eventListener till när muspekaren är över en av kanalerna, då ska funktionen displayChannelsDesc köras
 
 
-// Funktion som tar beskrivningen från varje kanal, och när man hoverar li elementet poppar texten upp
-
-
-
-
-
-
-
-
 function getChannelDesc(id) {
     const url = 'https://api.sr.se/api/v2/scheduledepisodes?format=json&channelid=' + id;
 
@@ -70,31 +61,37 @@ function getChannelDesc(id) {
         .catch(error => console.log(error));
 }
 
-function displayChannelDesc(title, description, starttimeutc, endtimeutc) {
+function displayChannelDesc(schedule) {
     const articleEl = document.getElementById("info");
 
-    let newArticleEl = document.createElement("article");
-    let newTitleEl = document.createElement("h3");
-    let newTitleText = document.createTextNode(title);
-    newTitleEl.appendChild(newTitleText);
+    articleEl.innerHTML = "";
 
-    let newDescriptionEl = document.createElement("p");
-    let newDescriptionText = document.createTextNode(description);
-    newDescriptionEl.appendChild(newDescriptionText);
+    schedule.forEach(item => {
+        let newArticleEl = document.createElement("article");
+        let newTitleEl = document.createElement("h3");
+        let newTitleText = document.createTextNode(item.title);
+        newTitleEl.appendChild(newTitleText);
 
-    let newTimeEl = document.createElement("h5");
-    let newTimeText = document.createTextNode(starttimeutc + ' - ' + endtimeutc);
-    newTimeEl.appendChild(newTimeText);
+        let newTimeEl = document.createElement("h5");
+        let newTimeText = document.createTextNode(item.starttimeutc + ' - ' + item.endtimeutc);
+        newTimeEl.appendChild(newTimeText);
 
-    newArticleEl.appendChild(newTitleEl);
-    newArticleEl.appendChild(newDescriptionEl);
-    newArticleEl.appendChild(newTimeEl);
 
-    articleEl.appendChild(newArticleEl);
+
+        let newDescriptionEl = document.createElement("p");
+        let newDescriptionText = document.createTextNode(item.description);
+        newDescriptionEl.appendChild(newDescriptionText);
+
+        newArticleEl.appendChild(newTitleEl);
+        newArticleEl.appendChild(newTimeEl);
+        newArticleEl.appendChild(newDescriptionEl);
+
+        articleEl.appendChild(newArticleEl);
+    })
 
 
 }
-// Det poppar upp massa "Object" istället för titeln för den valda kanalen, tror kanske det kan bero på att de tar titeln från data och inte data schedule, men vet inte. Suttit och klurat vet inte hur länge nu men kommer ingen vart.
+
 
 
 

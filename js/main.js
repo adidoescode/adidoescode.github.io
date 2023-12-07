@@ -2,6 +2,11 @@
 
 "use strict";
 
+/*  Delar till ej obligatorisk funktionalitet, som kan ge poäng för högre betyg
+*   Radera rader för funktioner du vill visa på webbsidan. */
+document.getElementById("player").style.display = "none";      // Radera denna rad för att visa musikspelare
+document.getElementById("shownumrows").style.display = "none"; // Radera denna rad för att visa antal träffar
+
 // Funktion som aktiveras när man laddar upp hemsidan
 
 window.onload = init;
@@ -20,9 +25,7 @@ function getChannels() {
         .then(data => displayChannels(data.channels))
         .catch(error => console.log(error));
 }
-
 //Funktion som med hjälp av datan som har hämtats av API:n skriver ut kanalerna i li format till en ul som sedan radas upp på vänstersidan av index.html filen
-
 function displayChannels(channels) {
 
     channels.forEach(channel => {
@@ -33,7 +36,8 @@ function displayChannels(channels) {
         let newLiEl = document.createElement("li");
         let newLiText = document.createTextNode(channel.name);
 
-        // Lägger till eventListener till när muspekaren är över en av kanalerna, då ska funktionen displayChannelDesc köras
+        // Lägger till eventListener till när muspekaren är över en av kanalerna, då ska funktionen getChannelDesc köras
+
         newLiEl.addEventListener("click", function () {
             getChannelDesc(channel.id);
         });
@@ -48,6 +52,7 @@ function displayChannels(channels) {
 
 
 // Funktion som med hjälp av id:n som kommer när man aktiverar eventlistenern tar fram tablån för kanalen som har blivit klickad på.
+
 function getChannelDesc(id) {
     const url = 'https://api.sr.se/api/v2/scheduledepisodes?format=json&channelid=' + id + '&size=999';
 
@@ -55,10 +60,11 @@ function getChannelDesc(id) {
         .then(response => response.json())
         .then(data => {
             displayChannelDesc(data.schedule);
-            console.log(url);
         })
         .catch(error => console.log(error));
 }
+
+//Funktion som med hjälp av datan vi får av den andra API:n hämtar tablån för de olika kanalerna
 
 function displayChannelDesc(schedule) {
     const articleEl = document.getElementById("info");
@@ -99,6 +105,8 @@ function displayChannelDesc(schedule) {
     }
 
 }
+
+// Funktion som konverterar tid till CET (vår lokala tid)
 
 function convertTime(timeStringStart, timeStringEnd) {
     let tempTimeStart = new Date(parseInt(timeStringStart.substr(6)));
